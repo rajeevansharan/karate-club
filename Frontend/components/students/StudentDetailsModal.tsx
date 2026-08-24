@@ -1,10 +1,11 @@
 import React from "react";
-import { X, Activity, Trophy, Award } from "lucide-react";
+import { X, Activity, Trophy, Award, CreditCard, DollarSign } from "lucide-react";
 import { Student } from "@/types/student";
 import { BeltBadge } from "./BeltBadge";
 import { StatusBadge } from "./StatusBadge";
 import { INITIAL_ATTENDANCE } from "@/data/mockAttendanceData";
 import { INITIAL_REGISTRATIONS } from "@/data/mockTournamentData";
+import { INITIAL_PAYMENTS, INITIAL_STUDENT_MEMBERSHIPS } from "@/data/mockPaymentData";
 
 interface StudentDetailsModalProps {
     student: Student | null;
@@ -223,6 +224,94 @@ export function StudentDetailsModal({ student, isOpen, onClose }: StudentDetails
                                             </div>
                                         </div>
                                     ))}
+                                </div>
+                            </div>
+                        );
+                    })()}
+
+                    {/* ---- Membership & Billing Ledger---- */}
+                    {(() => {
+                        const membership = INITIAL_STUDENT_MEMBERSHIPS.find(m => m.studentId === student.id);
+                        const studentPayments = INITIAL_PAYMENTS.filter(p => p.studentId === student.id);
+
+                        return (
+                            <div className="border-t border-[#F2F2F7] pt-4 space-y-4">
+                                <h3 className="text-xs font-bold text-[#8E8E93] uppercase tracking-wider flex items-center gap-1.5">
+                                    <CreditCard className="w-3.5 h-3.5" />
+                                    <span>Plan Subscription & Billings</span>
+                                </h3>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {/* Active Plan Card */}
+                                    <div className="bg-white border border-[#E5E5EA] p-3 rounded-2xl flex flex-col justify-between">
+                                        <div>
+                                            <span className="text-[10px] font-bold text-[#8E8E93] uppercase tracking-wide block">Current Plan Option</span>
+                                            <span className="text-xs font-extrabold text-[#1c1c1e] mt-1 block">
+                                                {membership ? membership.planName : "None Assigned"}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center justify-between mt-2 pt-2 border-t border-[#F2F2F7]">
+                                            <span className="text-[10px] text-[#8E8E93] font-medium">
+                                                {membership ? `${membership.startDate} to ${membership.expiryDate}` : "Inactive"}
+                                            </span>
+                                            {membership && (
+                                                <span className={`px-2 py-0.5 rounded text-[9.5px] font-extrabold ${membership.status === "Active" ? "bg-[#E8F8F0] text-[#25734A]" :
+                                                        membership.status === "Pending" ? "bg-orange-50 text-orange-700" :
+                                                            "bg-[#FDE8EA] text-[#9E1B28]"
+                                                    }`}>
+                                                    {membership.status}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Account Ledger Overview */}
+                                    <div className="bg-white border border-[#E5E5EA] p-3 rounded-2xl flex flex-col justify-between">
+                                        <div>
+                                            <span className="text-[10px] font-bold text-[#8E8E93] uppercase tracking-wide block">Total Payments Value</span>
+                                            <span className="text-xs font-extrabold text-[#25734A] mt-1 block">
+                                                Rs. {studentPayments
+                                                    .filter(p => p.status === "Paid")
+                                                    .reduce((acc, c) => acc + c.amount, 0)
+                                                    .toLocaleString()}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center justify-between mt-2 pt-2 border-t border-[#F2F2F7] text-[10px] text-[#8E8E93] font-semibold">
+                                            <span>Invoices: {studentPayments.length} Total</span>
+                                            {studentPayments.some(p => p.status === "Overdue") && (
+                                                <span className="text-[#9E1B28] font-bold">⚠️ Has Overdue Dues</span>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Detailed Payments Logs (Ledger List) */}
+                                <div className="border border-[#E5E5EA] rounded-2xl overflow-hidden divide-y divide-[#F2F2F7]">
+                                    {studentPayments.length > 0 ? (
+                                        studentPayments.map((p) => (
+                                            <div key={p.id} className="flex items-center justify-between p-2.5 text-xs bg-white">
+                                                <div className="flex flex-col">
+                                                    <span className="font-bold text-gray-800">{p.type} &bull; <span className="text-[10px] font-mono text-gray-400 font-normal">{p.id}</span></span>
+                                                    <span className="text-[10px] text-[#8E8E93] mt-0.5">{p.date} &bull; {p.method}</span>
+                                                </div>
+                                                <div className="flex items-center gap-3">
+                                                    <span className="font-bold text-[#1C1C1E]">
+                                                        Rs. {p.amount.toLocaleString()}
+                                                    </span>
+                                                    <span className={`px-1.5 py-0.5 rounded text-[9px] font-extrabold ${p.status === "Paid" ? "bg-[#E8F8F0] text-[#25734A]" :
+                                                            p.status === "Pending" ? "bg-orange-50 text-orange-700" :
+                                                                "bg-[#FDE8EA] text-[#9E1B28]"
+                                                        }`}>
+                                                        {p.status}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="p-4 text-center text-[11px] text-[#8E8E93] font-medium">
+                                            No payment listings logged for this student.
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         );
