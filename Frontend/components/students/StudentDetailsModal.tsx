@@ -1,5 +1,5 @@
 import React from "react";
-import { X, Activity, Trophy, Award, CreditCard, DollarSign, GraduationCap } from "lucide-react";
+import { X, Activity, Trophy, Award, CreditCard, DollarSign, GraduationCap, Star, FileText } from "lucide-react";
 import { Student } from "@/types/student";
 import { BeltBadge } from "./BeltBadge";
 import { StatusBadge } from "./StatusBadge";
@@ -7,6 +7,8 @@ import { INITIAL_ATTENDANCE } from "@/data/mockAttendanceData";
 import { INITIAL_REGISTRATIONS } from "@/data/mockTournamentData";
 import { INITIAL_PAYMENTS, INITIAL_STUDENT_MEMBERSHIPS } from "@/data/mockPaymentData";
 import { INITIAL_GRADING_RECORDS } from "@/data/mockGradingData";
+import { INITIAL_ACHIEVEMENTS } from "@/data/mockAchievementData";
+import { AchievementType } from "@/types/achievement";
 
 interface StudentDetailsModalProps {
     student: Student | null;
@@ -356,6 +358,58 @@ export function StudentDetailsModal({ student, isOpen, onClose }: StudentDetails
                                             <div className="text-[9.5px] text-[#8E8E93] font-medium border-t border-[#F2F2F7] pt-1.5 flex justify-between">
                                                 <span>Examiner: {g.instructor}</span>
                                                 <span>Date: {g.gradingDate}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        );
+                    })()}
+
+                    {/* ---- Achievements & Awards ---- */}
+                    {(() => {
+                        const studentAchievements = INITIAL_ACHIEVEMENTS.filter(a => a.studentId === student.id);
+                        if (studentAchievements.length === 0) return null;
+
+                        const typeColors: Record<AchievementType, string> = {
+                            "Tournament Medal": "bg-amber-50 text-amber-700 border-amber-200",
+                            "Belt Promotion": "bg-[#FDE8EA] text-[#9E1B28] border-rose-200",
+                            "Best Student": "bg-yellow-50 text-yellow-700 border-yellow-200",
+                            "Attendance Award": "bg-emerald-50 text-emerald-700 border-emerald-200",
+                            "Special Recognition": "bg-violet-50 text-violet-700 border-violet-200",
+                            "Competition Participation": "bg-blue-50 text-blue-700 border-blue-200",
+                            "Certificate": "bg-stone-50 text-stone-700 border-stone-200",
+                        };
+
+                        return (
+                            <div className="border-t border-[#F2F2F7] pt-4 space-y-3">
+                                <h3 className="text-xs font-bold text-[#8E8E93] uppercase tracking-wider flex items-center gap-1.5">
+                                    <Award className="w-4 h-4 text-stone-500" />
+                                    <span>Achievements & Awards ({studentAchievements.length})</span>
+                                </h3>
+                                <div className="grid grid-cols-1 gap-2.5">
+                                    {studentAchievements.map((a) => (
+                                        <div key={a.id} className="bg-[#FAFAFC] border border-[#E5E5EA] rounded-2xl p-3.5 flex flex-col gap-2">
+                                            <div className="flex items-start justify-between gap-2">
+                                                <span className={`text-[9.5px] font-bold px-1.5 py-0.5 rounded border ${typeColors[a.type]}`}>
+                                                    {a.type}
+                                                </span>
+                                                <span className="text-[9.5px] text-[#8E8E93] font-medium shrink-0">{a.date}</span>
+                                            </div>
+                                            <div>
+                                                <p className="text-xs font-extrabold text-[#1C1C1E] leading-snug">{a.title}</p>
+                                                {a.awardPosition && (
+                                                    <span className="text-[10px] font-bold text-amber-700">{a.awardPosition}</span>
+                                                )}
+                                            </div>
+                                            {a.description && (
+                                                <p className="text-[10.5px] text-[#6C6C70] leading-relaxed line-clamp-2">{a.description}</p>
+                                            )}
+                                            <div className="text-[9.5px] text-[#8E8E93] font-medium border-t border-[#F2F2F7] pt-1.5 flex items-center justify-between">
+                                                <span>By: {a.issuedBy || "—"}</span>
+                                                {a.certificateNumber && (
+                                                    <span className="font-mono bg-[#F2F2F7] px-1.5 py-0.5 rounded">{a.certificateNumber}</span>
+                                                )}
                                             </div>
                                         </div>
                                     ))}
