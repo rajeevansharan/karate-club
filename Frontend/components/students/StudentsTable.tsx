@@ -7,9 +7,10 @@ import { StatusBadge } from "./StatusBadge";
 interface StudentsTableProps {
     students: Student[];
     onSort: (field: StudentSortField) => void;
+    onViewDetails?: (student: Student) => void;
 }
 
-export function StudentsTable({ students, onSort }: StudentsTableProps) {
+export function StudentsTable({ students, onSort, onViewDetails }: StudentsTableProps) {
     return (
         <div className="bg-white rounded-2xl border border-[#E5E5EA] overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.02)] flex-1 flex flex-col">
             <div className="overflow-x-auto">
@@ -136,7 +137,8 @@ export function StudentsTable({ students, onSort }: StudentsTableProps) {
                                     <div className="flex items-center justify-end gap-2 text-[#8E8E93]">
                                         <button
                                             title="View Student"
-                                            className="p-1 hover:text-[#1C1C1E] transition-colors"
+                                            onClick={() => onViewDetails?.(student)}
+                                            className="p-1 hover:text-[#1C1C1E] transition-colors cursor-pointer"
                                         >
                                             <Eye className="w-4 h-4" />
                                         </button>

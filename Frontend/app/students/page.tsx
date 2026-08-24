@@ -6,10 +6,15 @@ import { StudentsHeader } from "@/components/students/StudentsHeader";
 import { StudentFilters } from "@/components/students/StudentFilters";
 import { StudentsTable } from "@/components/students/StudentsTable";
 import { AddStudentModal } from "@/components/students/AddStudentModal";
+import { StudentDetailsModal } from "@/components/students/StudentDetailsModal";
 import { useStudents } from "@/hooks/useStudents";
+import { Student } from "@/types/student";
 
 export default function StudentsPage() {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+    const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
     const {
         students,
         totalCount,
@@ -56,7 +61,14 @@ export default function StudentsPage() {
                     />
 
                     {/* Data Table */}
-                    <StudentsTable students={students} onSort={handleSort} />
+                    <StudentsTable
+                        students={students}
+                        onSort={handleSort}
+                        onViewDetails={(student) => {
+                            setSelectedStudent(student);
+                            setIsDetailsOpen(true);
+                        }}
+                    />
                 </div>
             </main>
 
@@ -65,6 +77,16 @@ export default function StudentsPage() {
                 isOpen={isAddModalOpen}
                 onClose={() => setIsAddModalOpen(false)}
                 onAddStudent={addStudent}
+            />
+
+            {/* Student Details Modal showing Attendance Rate */}
+            <StudentDetailsModal
+                student={selectedStudent}
+                isOpen={isDetailsOpen}
+                onClose={() => {
+                    setSelectedStudent(null);
+                    setIsDetailsOpen(false);
+                }}
             />
         </div>
     );
