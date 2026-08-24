@@ -1,9 +1,10 @@
 import React from "react";
-import { X, User, Phone, Calendar, Clock, GraduationCap, Award, ShieldAlert, CreditCard, Activity } from "lucide-react";
+import { X, Activity, Trophy, Award } from "lucide-react";
 import { Student } from "@/types/student";
 import { BeltBadge } from "./BeltBadge";
 import { StatusBadge } from "./StatusBadge";
 import { INITIAL_ATTENDANCE } from "@/data/mockAttendanceData";
+import { INITIAL_REGISTRATIONS } from "@/data/mockTournamentData";
 
 interface StudentDetailsModalProps {
     student: Student | null;
@@ -156,9 +157,9 @@ export function StudentDetailsModal({ student, isOpen, onClose }: StudentDetails
                                             )}
                                             <span
                                                 className={`px-2 py-0.5 rounded font-bold text-[9px] ${rec.status === "Present" ? 'bg-[#E8F8F0] text-[#25734A]' :
-                                                        rec.status === "Absent" ? 'bg-[#FDE8EA] text-[#9E1B28]' :
-                                                            rec.status === "Late" ? 'bg-orange-100 text-orange-700' :
-                                                                'bg-blue-100 text-blue-700'
+                                                    rec.status === "Absent" ? 'bg-[#FDE8EA] text-[#9E1B28]' :
+                                                        rec.status === "Late" ? 'bg-orange-100 text-orange-700' :
+                                                            'bg-blue-100 text-blue-700'
                                                     }`}
                                             >
                                                 {rec.status}
@@ -173,6 +174,59 @@ export function StudentDetailsModal({ student, isOpen, onClose }: StudentDetails
                             )}
                         </div>
                     </div>
+
+                    {/* ---- Tournament Results Section ---- */}
+                    {(() => {
+                        const tournamentRegs = INITIAL_REGISTRATIONS.filter(
+                            (r) => r.studentId === student.id && r.participated
+                        );
+                        if (tournamentRegs.length === 0) return null;
+                        return (
+                            <div>
+                                <h3 className="text-xs font-bold text-[#8E8E93] uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                                    <Trophy className="w-3.5 h-3.5" />
+                                    <span>Tournament Achievements ({tournamentRegs.length})</span>
+                                </h3>
+                                <div className="grid grid-cols-1 gap-2">
+                                    {tournamentRegs.map((reg) => (
+                                        <div key={reg.id} className="flex items-start justify-between bg-[#FAFAFC] border border-[#E5E5EA] rounded-2xl p-3 text-xs">
+                                            <div className="flex flex-col gap-0.5 flex-1 min-w-0">
+                                                <span className="font-bold text-[#1C1C1E] text-[13px] truncate">{reg.tournamentName}</span>
+                                                <div className="flex flex-wrap gap-x-2 gap-y-0.5 text-[10px] text-[#8E8E93] font-medium mt-0.5">
+                                                    <span className="bg-stone-100 text-stone-700 px-1.5 py-0.5 rounded font-bold">{reg.competitionType}</span>
+                                                    <span>{reg.ageCategory}</span>
+                                                    <span>&bull;</span>
+                                                    <span>{reg.weightCategory}</span>
+                                                </div>
+                                                {reg.notes && (
+                                                    <p className="text-[10.5px] text-[#6C6C70] mt-1.5 italic leading-snug">&ldquo;{reg.notes}&rdquo;</p>
+                                                )}
+                                            </div>
+                                            <div className="flex flex-col items-end gap-1.5 shrink-0 ml-3">
+                                                {reg.medal !== "None" && (
+                                                    <span className={`px-2.5 py-1 rounded-lg font-extrabold text-[11px] flex items-center gap-1 ${reg.medal === "Gold" ? "bg-yellow-50 text-yellow-700 border border-yellow-200" :
+                                                        reg.medal === "Silver" ? "bg-gray-100 text-gray-600 border border-gray-200" :
+                                                            "bg-orange-50 text-orange-700 border border-orange-200"
+                                                        }`}>
+                                                        <Award className="w-3 h-3" />
+                                                        {reg.medal === "Gold" ? "🥇" : reg.medal === "Silver" ? "🥈" : "🥉"} {reg.medal}
+                                                    </span>
+                                                )}
+                                                {reg.position && (
+                                                    <span className="text-[10px] font-bold text-[#9E1B28] bg-[#FDE8EA] px-2 py-0.5 rounded-md">
+                                                        #{reg.position} Place
+                                                    </span>
+                                                )}
+                                                {reg.score && (
+                                                    <span className="text-[10px] text-[#8E8E93] font-medium">Score: {reg.score}</span>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        );
+                    })()}
                 </div>
             </div>
         </div>
