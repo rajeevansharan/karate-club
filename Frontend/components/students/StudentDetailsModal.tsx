@@ -1,11 +1,12 @@
 import React from "react";
-import { X, Activity, Trophy, Award, CreditCard, DollarSign } from "lucide-react";
+import { X, Activity, Trophy, Award, CreditCard, DollarSign, GraduationCap } from "lucide-react";
 import { Student } from "@/types/student";
 import { BeltBadge } from "./BeltBadge";
 import { StatusBadge } from "./StatusBadge";
 import { INITIAL_ATTENDANCE } from "@/data/mockAttendanceData";
 import { INITIAL_REGISTRATIONS } from "@/data/mockTournamentData";
 import { INITIAL_PAYMENTS, INITIAL_STUDENT_MEMBERSHIPS } from "@/data/mockPaymentData";
+import { INITIAL_GRADING_RECORDS } from "@/data/mockGradingData";
 
 interface StudentDetailsModalProps {
     student: Student | null;
@@ -256,8 +257,8 @@ export function StudentDetailsModal({ student, isOpen, onClose }: StudentDetails
                                             </span>
                                             {membership && (
                                                 <span className={`px-2 py-0.5 rounded text-[9.5px] font-extrabold ${membership.status === "Active" ? "bg-[#E8F8F0] text-[#25734A]" :
-                                                        membership.status === "Pending" ? "bg-orange-50 text-orange-700" :
-                                                            "bg-[#FDE8EA] text-[#9E1B28]"
+                                                    membership.status === "Pending" ? "bg-orange-50 text-orange-700" :
+                                                        "bg-[#FDE8EA] text-[#9E1B28]"
                                                     }`}>
                                                     {membership.status}
                                                 </span>
@@ -299,8 +300,8 @@ export function StudentDetailsModal({ student, isOpen, onClose }: StudentDetails
                                                         Rs. {p.amount.toLocaleString()}
                                                     </span>
                                                     <span className={`px-1.5 py-0.5 rounded text-[9px] font-extrabold ${p.status === "Paid" ? "bg-[#E8F8F0] text-[#25734A]" :
-                                                            p.status === "Pending" ? "bg-orange-50 text-orange-700" :
-                                                                "bg-[#FDE8EA] text-[#9E1B28]"
+                                                        p.status === "Pending" ? "bg-orange-50 text-orange-700" :
+                                                            "bg-[#FDE8EA] text-[#9E1B28]"
                                                         }`}>
                                                         {p.status}
                                                     </span>
@@ -312,6 +313,52 @@ export function StudentDetailsModal({ student, isOpen, onClose }: StudentDetails
                                             No payment listings logged for this student.
                                         </div>
                                     )}
+                                </div>
+                            </div>
+                        );
+                    })()}
+
+                    {/* ---- Belt Grading & Promotion History ---- */}
+                    {(() => {
+                        const studentGradings = INITIAL_GRADING_RECORDS.filter(g => g.studentId === student.id);
+                        if (studentGradings.length === 0) return null;
+
+                        return (
+                            <div className="border-t border-[#F2F2F7] pt-4 space-y-4">
+                                <h3 className="text-xs font-bold text-[#8E8E93] uppercase tracking-wider flex items-center gap-1.5">
+                                    <GraduationCap className="w-4 h-4 text-stone-500" />
+                                    <span>Belt Grading Exams ({studentGradings.length})</span>
+                                </h3>
+
+                                <div className="grid grid-cols-1 gap-2.5">
+                                    {studentGradings.map((g) => (
+                                        <div key={g.id} className="bg-[#FAFAFC] border border-[#E5E5EA] rounded-2xl p-3.5 text-xs flex flex-col gap-2">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="bg-stone-200 text-stone-850 px-1.5 py-0.5 rounded text-[9.5px] font-bold">
+                                                        {g.previousBelt}
+                                                    </span>
+                                                    <span className="text-gray-400 font-bold">&rarr;</span>
+                                                    <span className="bg-stone-905 text-white px-1.5 py-0.5 rounded text-[9.5px] font-extrabold">
+                                                        {g.currentBelt} Rank
+                                                    </span>
+                                                </div>
+                                                <span className={`px-2 py-0.5 rounded font-extrabold text-[9.5px] ${g.result === "Pass" ? "bg-[#E8F8F0] text-[#25734A]" : "bg-[#FDE8EA] text-[#9E1B28]"
+                                                    }`}>
+                                                    {g.result} ({g.score})
+                                                </span>
+                                            </div>
+
+                                            {g.comments && (
+                                                <p className="text-[11px] text-[#6C6C70] italic leading-snug">&ldquo;{g.comments}&rdquo;</p>
+                                            )}
+
+                                            <div className="text-[9.5px] text-[#8E8E93] font-medium border-t border-[#F2F2F7] pt-1.5 flex justify-between">
+                                                <span>Examiner: {g.instructor}</span>
+                                                <span>Date: {g.gradingDate}</span>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         );

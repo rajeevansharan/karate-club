@@ -7,7 +7,7 @@ import { INITIAL_INSTRUCTORS } from "@/data/mockData";
 export type InstructorSortField = keyof Instructor;
 
 export function useInstructors() {
-    const [instructors, setInstructors] = useState<Instructor[]>(INITIAL_INSTRUCTORS);
+    const [instructors, setInstructors] = useState<Instructor[]>(INITIAL_INSTRUCTORS as Instructor[]);
     const [searchQuery, setSearchQuery] = useState("");
     const [sortField, setSortField] = useState<InstructorSortField | null>(null);
     const [sortAsc, setSortAsc] = useState(true);
