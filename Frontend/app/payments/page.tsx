@@ -38,12 +38,12 @@ export default function PaymentsPage() {
     const [isRecordOpen, setIsRecordOpen] = useState(false);
 
     return (
-        <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] overflow-hidden select-none">
+        <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] lg:overflow-hidden select-none">
             {/* Sidebar */}
             <Sidebar />
 
             {/* Main scroll workspace */}
-            <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-8">
+            <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-4 sm:p-6 lg:p-8 pt-[72px] lg:pt-8">
                 <div className="flex flex-col h-full">
 
                     {/* Title Banner */}
@@ -142,8 +142,8 @@ export default function PaymentsPage() {
                             <button
                                 onClick={() => setActiveTab("payments")}
                                 className={`px-4 py-2 border-b-2 font-bold text-xs select-none cursor-pointer transition-all mr-4 flex items-center gap-1.5 ${activeTab === "payments"
-                                        ? "border-[#9E1B28] text-[#9E1B28]"
-                                        : "border-transparent text-[#8E8E93] hover:text-[#333]"
+                                    ? "border-[#9E1B28] text-[#9E1B28]"
+                                    : "border-transparent text-[#8E8E93] hover:text-[#333]"
                                     }`}
                             >
                                 <DollarSign className="w-4 h-4" />
@@ -152,8 +152,8 @@ export default function PaymentsPage() {
                             <button
                                 onClick={() => setActiveTab("memberships")}
                                 className={`px-4 py-2 border-b-2 font-bold text-xs select-none cursor-pointer transition-all flex items-center gap-1.5 ${activeTab === "memberships"
-                                        ? "border-[#9E1B28] text-[#9E1B28]"
-                                        : "border-transparent text-[#8E8E93] hover:text-[#333]"
+                                    ? "border-[#9E1B28] text-[#9E1B28]"
+                                    : "border-transparent text-[#8E8E93] hover:text-[#333]"
                                     }`}
                             >
                                 <CreditCard className="w-4 h-4" />
@@ -272,8 +272,8 @@ export default function PaymentsPage() {
                                                     </td>
                                                     <td className="px-6">
                                                         <span className={`px-2 py-0.5 rounded font-extrabold text-[9.5px] ${p.status === "Paid" ? "bg-[#E8F8F0] text-[#25734A]" :
-                                                                p.status === "Pending" ? "bg-orange-50 text-orange-700 border border-orange-200" :
-                                                                    "bg-[#FDE8EA] text-[#9E1B28]"
+                                                            p.status === "Pending" ? "bg-orange-50 text-orange-700 border border-orange-200" :
+                                                                "bg-[#FDE8EA] text-[#9E1B28]"
                                                             }`}>
                                                             {p.status}
                                                         </span>
@@ -323,8 +323,8 @@ export default function PaymentsPage() {
                                                 <td className="px-6 text-[#6C6C70] font-medium">{m.expiryDate}</td>
                                                 <td className="px-6">
                                                     <span className={`px-2 py-0.5 rounded font-extrabold text-[9.5px] ${m.status === "Active" ? "bg-[#E8F8F0] text-[#25734A]" :
-                                                            m.status === "Pending" ? "bg-orange-50 text-orange-700" :
-                                                                "bg-[#FDE8EA] text-[#9E1B28]"
+                                                        m.status === "Pending" ? "bg-orange-50 text-orange-700" :
+                                                            "bg-[#FDE8EA] text-[#9E1B28]"
                                                         }`}>
                                                         {m.status}
                                                     </span>

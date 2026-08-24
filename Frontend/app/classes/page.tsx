@@ -62,16 +62,16 @@ export default function ClassesPage() {
     };
 
     return (
-        <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] overflow-hidden select-none">
+        <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] lg:overflow-hidden select-none">
             {/* Sidebar */}
             <Sidebar />
 
             {/* Main Content Area */}
-            <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-8">
+            <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-4 sm:p-6 lg:p-8 pt-[72px] lg:pt-8">
                 <div className="flex flex-col h-full">
 
                     {/* Header bar */}
-                    <div className="flex items-center justify-between mb-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
                         <div>
                             <h1 className="text-2xl font-bold text-[#1C1C1E] tracking-tight">
                                 Class & Schedule Management
@@ -81,14 +81,14 @@ export default function ClassesPage() {
                             </p>
                         </div>
 
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-3 shrink-0">
                             {/* View Switcher Tabs */}
                             <div className="bg-[#E5E5EA] p-1 rounded-xl flex items-center gap-1 mr-2">
                                 <button
                                     onClick={() => setViewMode("schedule")}
                                     className={`px-4 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${viewMode === "schedule"
-                                            ? "bg-white text-[#1C1C1E] shadow-sm"
-                                            : "text-[#6C6C70] hover:text-[#1C1C1E]"
+                                        ? "bg-white text-[#1C1C1E] shadow-sm"
+                                        : "text-[#6C6C70] hover:text-[#1C1C1E]"
                                         }`}
                                 >
                                     <Calendar className="w-3.5 h-3.5" />
@@ -97,8 +97,8 @@ export default function ClassesPage() {
                                 <button
                                     onClick={() => setViewMode("list")}
                                     className={`px-4 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${viewMode === "list"
-                                            ? "bg-white text-[#1C1C1E] shadow-sm"
-                                            : "text-[#6C6C70] hover:text-[#1C1C1E]"
+                                        ? "bg-white text-[#1C1C1E] shadow-sm"
+                                        : "text-[#6C6C70] hover:text-[#1C1C1E]"
                                         }`}
                                 >
                                     <List className="w-3.5 h-3.5" />

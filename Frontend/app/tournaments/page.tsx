@@ -60,16 +60,16 @@ export default function TournamentsPage() {
     };
 
     return (
-        <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] overflow-hidden select-none">
+        <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] lg:overflow-hidden select-none">
             {/* Sidebar */}
             <Sidebar />
 
             {/* Main Content */}
-            <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-8">
+            <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-4 sm:p-6 lg:p-8 pt-[72px] lg:pt-8">
                 <div className="flex flex-col h-full">
 
                     {/* Header */}
-                    <div className="flex items-center justify-between mb-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
                         <div>
                             <h1 className="text-2xl font-bold text-[#1C1C1E] tracking-tight">
                                 Tournament & Competitions
@@ -88,8 +88,8 @@ export default function TournamentsPage() {
                     </div>
 
                     {/* Filter row */}
-                    <div className="flex items-center justify-between bg-white border border-[#E5E5EA] p-3 rounded-2xl mb-6 shadow-xs">
-                        <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between bg-white border border-[#E5E5EA] p-3 rounded-2xl mb-6 shadow-xs overflow-x-auto">
+                        <div className="flex items-center gap-2 min-w-max">
                             <span className="text-xs font-bold uppercase tracking-wider text-[#8E8E93] mr-2">
                                 Status Filter:
                             </span>
@@ -98,8 +98,8 @@ export default function TournamentsPage() {
                                     key={status}
                                     onClick={() => setStatusFilter(status)}
                                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold select-none cursor-pointer transition-all ${(statusFilter === status)
-                                            ? "bg-[#9E1B28] text-white"
-                                            : "text-[#6C6C70] hover:bg-[#F2F2F7]"
+                                        ? "bg-[#9E1B28] text-white"
+                                        : "text-[#6C6C70] hover:bg-[#F2F2F7]"
                                         }`}
                                 >
                                     {status}
@@ -127,8 +127,8 @@ export default function TournamentsPage() {
                                             key={trn.id}
                                             onClick={() => setSelectedTournamentId(trn.id)}
                                             className={`p-4 rounded-2xl border transition-all cursor-pointer text-left select-none relative overflow-hidden ${isSelected
-                                                    ? "bg-white border-[#9E1B28] shadow-[0_4px_12px_rgba(158,27,40,0.06)]"
-                                                    : "bg-white border-[#E5E5EA] hover:border-[#C7C7CC]"
+                                                ? "bg-white border-[#9E1B28] shadow-[0_4px_12px_rgba(158,27,40,0.06)]"
+                                                : "bg-white border-[#E5E5EA] hover:border-[#C7C7CC]"
                                                 }`}
                                         >
                                             {/* Status Badge */}
@@ -138,9 +138,9 @@ export default function TournamentsPage() {
                                                 </span>
                                                 <span
                                                     className={`px-2 py-0.5 rounded text-[9.5px] font-bold ${trn.status === "Registration Open" ? "bg-[#E8F8F0] text-[#25734A]" :
-                                                            trn.status === "Completed" ? "bg-stone-100 text-stone-700" :
-                                                                trn.status === "Cancelled" ? "bg-[#FDE8EA] text-[#9E1B28]" :
-                                                                    "bg-yellow-50 text-yellow-700 border-yellow-200"
+                                                        trn.status === "Completed" ? "bg-stone-100 text-stone-700" :
+                                                            trn.status === "Cancelled" ? "bg-[#FDE8EA] text-[#9E1B28]" :
+                                                                "bg-yellow-50 text-yellow-700 border-yellow-200"
                                                         }`}
                                                 >
                                                     {trn.status}

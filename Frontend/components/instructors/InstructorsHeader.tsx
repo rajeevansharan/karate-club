@@ -7,7 +7,7 @@ interface InstructorsHeaderProps {
 
 export function InstructorsHeader({ count }: InstructorsHeaderProps) {
     return (
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
             <div>
                 <h1 className="text-2xl font-bold text-[#1C1C1E] tracking-tight">
                     Instructors
@@ -18,7 +18,7 @@ export function InstructorsHeader({ count }: InstructorsHeaderProps) {
             </div>
 
             <button
-                className="bg-[#9E1B28] hover:bg-[#851621] text-white px-4 py-2.5 rounded-xl font-medium text-sm flex items-center gap-2 shadow-sm transition-colors cursor-pointer"
+                className="bg-[#9E1B28] hover:bg-[#851621] text-white px-4 py-2.5 rounded-xl font-medium text-sm flex items-center gap-2 shadow-sm transition-colors cursor-pointer self-start sm:self-auto"
             >
                 <Plus className="w-4 h-4 stroke-[2.5]" />
                 <span>Add Instructor</span>

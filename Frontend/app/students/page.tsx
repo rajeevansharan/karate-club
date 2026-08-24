@@ -33,12 +33,12 @@ export default function StudentsPage() {
     } = useStudents();
 
     return (
-        <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] overflow-hidden select-none">
+        <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] lg:overflow-hidden select-none">
             {/* Sidebar */}
             <Sidebar />
 
             {/* Main Content Area */}
-            <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-8">
+            <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-4 sm:p-6 lg:p-8 pt-[72px] lg:pt-8">
                 <div className="flex flex-col h-full">
                     {/* Header */}
                     <StudentsHeader

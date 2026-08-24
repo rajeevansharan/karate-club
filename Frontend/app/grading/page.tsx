@@ -63,16 +63,16 @@ export default function GradingPage() {
     };
 
     return (
-        <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] overflow-hidden select-none">
+        <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] lg:overflow-hidden select-none">
             {/* Sidebar */}
             <Sidebar />
 
             {/* Main Content */}
-            <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-8">
+            <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-4 sm:p-6 lg:p-8 pt-[72px] lg:pt-8">
                 <div className="flex flex-col h-full">
 
                     {/* Page Header */}
-                    <div className="flex items-center justify-between mb-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
                         <div>
                             <h1 className="text-2xl font-bold text-[#1C1C1E] tracking-tight flex items-center gap-2">
                                 <GraduationCap className="w-7 h-7 text-[#9E1B28] shrink-0" />
@@ -97,8 +97,8 @@ export default function GradingPage() {
                             <button
                                 onClick={() => setActiveTab("eligibility")}
                                 className={`px-4 py-2 border-b-2 font-bold text-xs select-none cursor-pointer transition-all mr-4 flex items-center gap-1.5 ${activeTab === "eligibility"
-                                        ? "border-[#9E1B28] text-[#9E1B28]"
-                                        : "border-transparent text-[#8E8E93] hover:text-[#333]"
+                                    ? "border-[#9E1B28] text-[#9E1B28]"
+                                    : "border-transparent text-[#8E8E93] hover:text-[#333]"
                                     }`}
                             >
                                 <UserCheck className="w-4 h-4" />
@@ -107,8 +107,8 @@ export default function GradingPage() {
                             <button
                                 onClick={() => setActiveTab("events")}
                                 className={`px-4 py-2 border-b-2 font-bold text-xs select-none cursor-pointer transition-all flex items-center gap-1.5 ${activeTab === "events"
-                                        ? "border-[#9E1B28] text-[#9E1B28]"
-                                        : "border-transparent text-[#8E8E93] hover:text-[#333]"
+                                    ? "border-[#9E1B28] text-[#9E1B28]"
+                                    : "border-transparent text-[#8E8E93] hover:text-[#333]"
                                     }`}
                             >
                                 <Calendar className="w-4 h-4" />
@@ -175,8 +175,8 @@ export default function GradingPage() {
                                                     <button
                                                         onClick={() => toggleRecommendation(el.studentId)}
                                                         className={`px-3 py-1 rounded-xl text-[10.5px] font-bold border transition-all cursor-pointer ${el.recommendedByInstructor
-                                                                ? "bg-[#E8F8F0] border-transparent text-[#25734A] shadow-6xs"
-                                                                : "bg-stone-50 border-gray-250 text-[#8E8E93]"
+                                                            ? "bg-[#E8F8F0] border-transparent text-[#25734A] shadow-6xs"
+                                                            : "bg-stone-50 border-gray-250 text-[#8E8E93]"
                                                             }`}
                                                     >
                                                         {el.recommendedByInstructor ? "★ Recommended" : "☆ Recommend"}
@@ -184,8 +184,8 @@ export default function GradingPage() {
                                                 </td>
                                                 <td className="px-6">
                                                     <span className={`px-2 py-0.5 rounded font-extrabold text-[9.5px] ${el.status === "Eligible" ? "bg-[#E8F8F0] text-[#25734A]" :
-                                                            el.status === "Pending Review" ? "bg-orange-50 text-orange-700 border border-orange-200" :
-                                                                "bg-[#FDE8EA] text-[#9E1B28]"
+                                                        el.status === "Pending Review" ? "bg-orange-50 text-orange-700 border border-orange-200" :
+                                                            "bg-[#FDE8EA] text-[#9E1B28]"
                                                         }`}>
                                                         {el.status}
                                                     </span>
@@ -219,8 +219,8 @@ export default function GradingPage() {
                                             key={ev.id}
                                             onClick={() => setSelectedEventId(ev.id)}
                                             className={`p-4 rounded-2xl border transition-all cursor-pointer text-left select-none ${isSelected
-                                                    ? "bg-white border-[#9E1B28] shadow-[0_4px_12px_rgba(158,27,40,0.06)]"
-                                                    : "bg-white border-[#E5E5EA] hover:border-[#C7C7CC]"
+                                                ? "bg-white border-[#9E1B28] shadow-[0_4px_12px_rgba(158,27,40,0.06)]"
+                                                : "bg-white border-[#E5E5EA] hover:border-[#C7C7CC]"
                                                 }`}
                                         >
                                             <div className="flex items-center justify-between mb-2">
@@ -317,8 +317,8 @@ export default function GradingPage() {
                                                                     {recordObj ? (
                                                                         <div className="flex items-center gap-1.5">
                                                                             <span className={`px-2 py-0.5 rounded font-extrabold text-[9.5px] ${recordObj.result === "Pass" ? "bg-[#E8F8F0] text-[#25734A]" :
-                                                                                    recordObj.result === "Fail" ? "bg-[#FDE8EA] text-[#9E1B28]" :
-                                                                                        "bg-orange-50 text-orange-700 border border-orange-200"
+                                                                                recordObj.result === "Fail" ? "bg-[#FDE8EA] text-[#9E1B28]" :
+                                                                                    "bg-orange-50 text-orange-700 border border-orange-200"
                                                                                 }`}>
                                                                                 {recordObj.result} ({recordObj.score})
                                                                             </span>

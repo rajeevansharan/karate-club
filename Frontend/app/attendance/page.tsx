@@ -138,16 +138,16 @@ export default function AttendancePage() {
     };
 
     return (
-        <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] overflow-hidden select-none">
+        <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] lg:overflow-hidden select-none">
             {/* Sidebar */}
             <Sidebar />
 
             {/* Main Content Area */}
-            <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-8">
+            <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-4 sm:p-6 lg:p-8 pt-[72px] lg:pt-8">
                 <div className="flex flex-col h-full">
 
                     {/* Header bar */}
-                    <div className="flex items-center justify-between mb-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
                         <div>
                             <h1 className="text-2xl font-bold text-[#1C1C1E] tracking-tight">
                                 Attendance & Check-in System
@@ -162,8 +162,8 @@ export default function AttendancePage() {
                             <button
                                 onClick={() => setActiveTab("mark")}
                                 className={`px-4 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${activeTab === "mark"
-                                        ? "bg-white text-[#1C1C1E] shadow-sm"
-                                        : "text-[#6C6C70] hover:text-[#1C1C1E]"
+                                    ? "bg-white text-[#1C1C1E] shadow-sm"
+                                    : "text-[#6C6C70] hover:text-[#1C1C1E]"
                                     }`}
                             >
                                 <UserCheck className="w-3.5 h-3.5" />
@@ -172,8 +172,8 @@ export default function AttendancePage() {
                             <button
                                 onClick={() => setActiveTab("history")}
                                 className={`px-4 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${activeTab === "history"
-                                        ? "bg-white text-[#1C1C1E] shadow-sm"
-                                        : "text-[#6C6C70] hover:text-[#1C1C1E]"
+                                    ? "bg-white text-[#1C1C1E] shadow-sm"
+                                    : "text-[#6C6C70] hover:text-[#1C1C1E]"
                                     }`}
                             >
                                 <History className="w-3.5 h-3.5" />
@@ -546,9 +546,9 @@ export default function AttendancePage() {
                                                         <td className="py-3 px-4">
                                                             <span
                                                                 className={`px-3 py-1 rounded-full text-[10px] font-bold border ${rec.status === "Present" ? 'bg-[#E8F8F0] text-[#25734A] border-[#4AD991]/30' :
-                                                                        rec.status === "Absent" ? 'bg-[#FDE8EA] text-[#9E1B28] border-[#9E1B28]/20' :
-                                                                            rec.status === "Late" ? 'bg-orange-50 text-orange-700 border-orange-200' :
-                                                                                'bg-blue-50 text-blue-700 border-blue-200'
+                                                                    rec.status === "Absent" ? 'bg-[#FDE8EA] text-[#9E1B28] border-[#9E1B28]/20' :
+                                                                        rec.status === "Late" ? 'bg-orange-50 text-orange-700 border-orange-200' :
+                                                                            'bg-blue-50 text-blue-700 border-blue-200'
                                                                     }`}
                                                             >
                                                                 {rec.status}

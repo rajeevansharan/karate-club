@@ -6,12 +6,12 @@ import { AttendanceRateChart } from "@/components/dashboard/AttendanceRateChart"
 
 export default function DashboardPage() {
   return (
-    <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] overflow-hidden select-none">
+    <div className="flex h-screen w-screen bg-[#F5F5F7] font-sans antialiased text-[#1C1C1E] lg:overflow-hidden select-none">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-8">
+      <main className="flex-1 flex flex-col overflow-y-auto bg-[#F5F5F7] p-4 sm:p-6 lg:p-8 pt-[72px] lg:pt-8">
         {/* Page Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-[#1C1C1E] tracking-tight">
